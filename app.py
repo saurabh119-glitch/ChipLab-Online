@@ -66,4 +66,41 @@ with col2:
     st.write("**Signal Waveform:**")
     
     # Create Plotly Figure
-    fig = go.Figure
+    fig = go.Figure()
+    
+    # Add Clock Trace
+    fig.add_trace(go.Scatter(
+        x=[0, 1, 2, 3, 4, 5], 
+        y=[0, 1, 0, 1, 0, 1], 
+        mode='lines+markers', 
+        name='Clock'
+    ))
+    
+    # Add Input A Trace
+    fig.add_trace(go.Scatter(
+        x=[0, 1, 2, 3, 4, 5], 
+        y=[int(input_a)] * 6, 
+        mode='lines+markers', 
+        name='Input A'
+    ))
+    
+    # Add Output Trace
+    fig.add_trace(go.Scatter(
+        x=[0, 1, 2, 3, 4, 5], 
+        y=[int(result)] * 6, 
+        mode='lines+markers', 
+        name='Output'
+    ))
+
+    fig.update_layout(
+        title="Logic Signals", 
+        height=300, 
+        xaxis_title="Time Steps", 
+        yaxis_title="State (0/1)"
+    )
+    
+    st.plotly_chart(fig)
+
+# Footer
+st.markdown("---")
+st.caption("Built with Streamlit | Inspired by Open Source Silicon")
