@@ -22,7 +22,7 @@ with col1:
     input_a = st.checkbox("Input A", value=False)
     input_b = st.checkbox("Input B", value=False)
     
-    # Simple Logic Parser (Demo Purpose)
+    # Simple Logic Parser
     if "AND" in code_input.upper():
         result = input_a and input_b
         gate_type = "AND Gate"
@@ -43,8 +43,8 @@ with col1:
 with col2:
     st.subheader("📊 Output & Visualization")
     
-    # Display Result
-    status_color = "#28a745" if result else "#dc3545" # Green or Red
+    # Display Result Box
+    status_color = "#28a745" if result else "#dc3545"
     st.markdown(f"""
     <div style='padding: 20px; border-radius: 10px; background-color: {status_color}; color: white; text-align: center;'>
         <h2>OUTPUT: {int(result)}</h2>
@@ -52,7 +52,7 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-    # Truth Table Generator
+    # Truth Table
     st.write("**Truth Table:**")
     data = {
         'A': [0, 0, 1, 1],
@@ -62,9 +62,8 @@ with col2:
     df = pd.DataFrame(data)
     st.table(df)
 
-    # Waveform Visualization
+    # Waveform Chart
     st.write("**Signal Waveform:**")
-    fig = go.Figure()
     
-    # Clock Signal
-    fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4, 5], y=[0, 1, 0, 1, 0, 1], mode='
+    # Create Plotly Figure
+    fig = go.Figure
