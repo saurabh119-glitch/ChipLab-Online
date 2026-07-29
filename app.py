@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import time
+import plotly.graph_objects as go
 
 # Page Config
 st.set_page_config(page_title="ChipLab Online", layout="wide")
@@ -26,54 +26,45 @@ with col1:
     if "AND" in code_input.upper():
         result = input_a and input_b
         gate_type = "AND Gate"
+        truth_results = [0, 0, 0, 1]
     elif "OR" in code_input.upper():
         result = input_a or input_b
         gate_type = "OR Gate"
+        truth_results = [0, 1, 1, 1]
     elif "XOR" in code_input.upper():
         result = input_a ^ input_b
         gate_type = "XOR Gate"
+        truth_results = [0, 1, 1, 0]
     else:
         result = False
-        gate_type = "Unknown"
+        gate_type = "Unknown Gate"
+        truth_results = [0, 0, 0, 0]
 
 with col2:
     st.subheader("📊 Output & Visualization")
     
     # Display Result
-    status_color = "green" if result else "red"
+    status_color = "#28a745" if result else "#dc3545" # Green or Red
     st.markdown(f"""
     <div style='padding: 20px; border-radius: 10px; background-color: {status_color}; color: white; text-align: center;'>
         <h2>OUTPUT: {int(result)}</h2>
-        <p>Gate: {gate_type}</p>
+        <p>Gate Detected: {gate_type}</p>
     </div>
     """, unsafe_allow_html=True)
 
     # Truth Table Generator
-    st.write("Truth Table:")
+    st.write("**Truth Table:**")
     data = {
         'A': [0, 0, 1, 1],
         'B': [0, 1, 0, 1],
-        'Result': [0, 0, 0, 1] if "AND" in code_input.upper() else 
-                  [0, 1, 1, 1] if "OR" in code_input.upper() else
-                  [0, 1, 1, 0]
+        'Result': truth_results
     }
     df = pd.DataFrame(data)
     st.table(df)
 
-# Footer
-st.markdown("---")
-st.caption("Built with Streamlit | Inspired by Open Source Silicon")
-
-
-import plotly.graph_objects as go
-
-# ... inside col2 ...
-
-# Fake Waveform Visualization
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 0, 1, 0], mode='lines', name='Clock'))
-fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[int(input_a)]*5, mode='lines', name='Input A'))
-fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[int(result)]*5, mode='lines', name='Output'))
-
-fig.update_layout(title="Signal Waveform", height=300)
-st.plotly_chart(fig)
+    # Waveform Visualization
+    st.write("**Signal Waveform:**")
+    fig = go.Figure()
+    
+    # Clock Signal
+    fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4, 5], y=[0, 1, 0, 1, 0, 1], mode='
