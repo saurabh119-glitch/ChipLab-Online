@@ -63,3 +63,17 @@ with col2:
 # Footer
 st.markdown("---")
 st.caption("Built with Streamlit | Inspired by Open Source Silicon")
+
+
+import plotly.graph_objects as go
+
+# ... inside col2 ...
+
+# Fake Waveform Visualization
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 0, 1, 0], mode='lines', name='Clock'))
+fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[int(input_a)]*5, mode='lines', name='Input A'))
+fig.add_trace(go.Scatter(x=[0, 1, 2, 3, 4], y=[int(result)]*5, mode='lines', name='Output'))
+
+fig.update_layout(title="Signal Waveform", height=300)
+st.plotly_chart(fig)
